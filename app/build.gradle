@@ -22,12 +22,24 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+
+        maven {
+            url "http://maven.openrainbow.io"
+        }
+
+
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.github.Rainbow-CPaaS:Rainbow-Android-SDK:1.33.0'
+    //compile 'com.github.Rainbow-CPaaS:Rainbow-Android-SDK:1.33.0'
+    compile ("com.ale:rainbowsdk:1.34.0@aar"){transitive=true}
 }
 
 /**
