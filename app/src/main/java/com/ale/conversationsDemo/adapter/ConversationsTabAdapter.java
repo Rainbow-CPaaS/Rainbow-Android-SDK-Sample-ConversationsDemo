@@ -82,27 +82,39 @@ public class ConversationsTabAdapter extends BaseAdapter {
         }
 
         IRainbowConversation conversation = (IRainbowConversation)getItem(position);
-        myViewHolder.displayName.setText(conversation.getContact().getFirstName() + " " + conversation.getContact().getLastName());
-        myViewHolder.lastMessage.setText(conversation.getLastMessage().getMessageContent());
-
-        if (conversation.getContact().getPhoto() == null) {
-            myViewHolder.photo.setImageResource(R.drawable.contact);
+        if (conversation.isRoomType()) {
+            myViewHolder.displayName.setText(conversation.getRoom().getName());
         } else {
-            myViewHolder.photo.setImageBitmap(conversation.getContact().getPhoto());
+            if (conversation.getContact() != null) {
+                myViewHolder.displayName.setText(conversation.getContact().getFirstName() + " " + conversation.getContact().getLastName());
+            }
         }
 
-        RainbowPresence presence = conversation.getContact().getPresence();
-        if (presence != null) {
-            if (presence.isOnline()) {
-                myViewHolder.presence.setBackgroundResource(R.drawable.online);
-            } else if (presence.isMobileOnline()) {
-                myViewHolder.presence.setBackgroundResource(R.drawable.online_mobile);
-            } else if (presence.isAway() || presence.isManualAway()) {
-                myViewHolder.presence.setBackgroundResource(R.drawable.away);
-            } else if (presence.isDND() || presence.isBusy()) {
-                myViewHolder.presence.setBackgroundResource(R.drawable.do_not_disturb);
+        myViewHolder.lastMessage.setText(conversation.getLastMessage().getMessageContent());
+
+        if (conversation.getContact() != null) {
+           if ( conversation.getContact().getPhoto() == null) {
+                myViewHolder.photo.setImageResource(R.drawable.contact);
             } else {
-                myViewHolder.presence.setBackgroundResource(R.drawable.offline);
+                myViewHolder.photo.setImageBitmap(conversation.getContact().getPhoto());
+            }
+
+        }
+
+        if (conversation.getContact() != null) {
+            RainbowPresence presence = conversation.getContact().getPresence();
+            if (presence != null) {
+                if (presence.isOnline()) {
+                    myViewHolder.presence.setBackgroundResource(R.drawable.online);
+                } else if (presence.isMobileOnline()) {
+                    myViewHolder.presence.setBackgroundResource(R.drawable.online_mobile);
+                } else if (presence.isAway() || presence.isManualAway()) {
+                    myViewHolder.presence.setBackgroundResource(R.drawable.away);
+                } else if (presence.isDND() || presence.isBusy()) {
+                    myViewHolder.presence.setBackgroundResource(R.drawable.do_not_disturb);
+                } else {
+                    myViewHolder.presence.setBackgroundResource(R.drawable.offline);
+                }
             }
         }
 

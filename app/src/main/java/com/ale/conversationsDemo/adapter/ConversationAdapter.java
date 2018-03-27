@@ -107,11 +107,14 @@ public class ConversationAdapter extends BaseAdapter {
             myViewHolder.content.setText(message.getMessageContent());
         }
 
-        if (!message.isMsgSent()) {
-            myViewHolder.photo.setImageBitmap(m_conversation.getContact().getPhoto());
-        } else {
-            myViewHolder.photo.setImageBitmap(m_me.getPhoto());
+        if (!m_conversation.isRoomType()) {
+            if (!message.isMsgSent()) {
+                myViewHolder.photo.setImageBitmap(m_conversation.getContact().getPhoto());
+            } else {
+                myViewHolder.photo.setImageBitmap(m_me.getPhoto());
+            }
         }
+
 
         IMMessage.DeliveryState deliveryState = message.getDeliveryState();
         if (deliveryState.equals(IMMessage.DeliveryState.SENT)) {

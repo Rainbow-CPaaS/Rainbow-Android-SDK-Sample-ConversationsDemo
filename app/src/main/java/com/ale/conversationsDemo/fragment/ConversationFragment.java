@@ -71,7 +71,7 @@ public class ConversationFragment extends Fragment implements IRainbowImListener
 
         if (m_activity != null && m_activity.getSupportActionBar() != null) {
             // Set presence in the ActionBar
-            if (m_conversation.getContact().getPresence() != null) {
+            if (m_conversation.getContact() != null && m_conversation.getContact().getPresence() != null) {
                 IRainbowContact contact = m_conversation.getContact();
                 m_activity.getSupportActionBar().setTitle(contact.getFirstName() + " " + contact.getLastName() + " (" + contact.getPresence().toString() + ")");
             }

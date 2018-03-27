@@ -118,7 +118,10 @@ public class ConversationsTabFragment extends Fragment implements Contact.Contac
      */
     private void registerContactsOfConversationsList() {
         for (IRainbowConversation conversation : RainbowSdk.instance().conversations().getAllConversations().getItems()) {
-            conversation.getContact().registerChangeListener(this);
+            if (conversation.getContact() != null) {
+               conversation.getContact().registerChangeListener(this);
+            }
+
         }
     }
 
